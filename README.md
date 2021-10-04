@@ -7,8 +7,8 @@ Passos para rodar a aplicação:
 
 1. Instalar Visual Studio(2019), SQL Server, e SQL Server Managment Studio;
 2. Fazer download do projeto e roda-lo com o arquivo Projeto CRUD.sln;
-3. Ir em Exibir > Terminal e digitar as seguintes linhas:
-  a. Install-Package Microsoft.EntityFrameworkCore.SqlServer
-  b. Install-Package Microsoft.EntityFrameworkCore.Tools
-  c. EntityFrameworkCore\update-database
+3. Ir em Exibir > Terminal e digitar as seguintes linhas (sem as aspas):
+  a. "Install-Package Microsoft.EntityFrameworkCore.SqlServer"
+  b. "Install-Package Microsoft.EntityFrameworkCore.Tools"
+  c. "EntityFrameworkCore\update-database"
 4. Após as instalações bem sucedidas do passo anterior, pressionar Ctrl+Shift-B;
