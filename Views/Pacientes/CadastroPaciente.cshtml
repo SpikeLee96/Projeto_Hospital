@@ -1,0 +1,110 @@
+﻿@model Projeto_CRUD.Models.Paciente
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="h-100 h-custom" style="background-color: #b30000;">
+
+    <script type="text/javascript">
+        if ("@ViewBag.msg")
+        {
+            alert("@Html.Raw(ViewBag.msg)");
+        }
+    </script>
+
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src='~/resources/hospital.jpg' height="180" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Cadastro de Paciente</h3>
+
+                        @using (Html.BeginForm("CadastroPaciente", "Pacientes", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(model => model.data, htmlAttributes: new { @class = "form-label" })
+                                    <div class="form-outline datepicker">
+                                        @Html.EditorFor(model => model.data, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                        @Html.ValidationMessageFor(model => model.data, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(model => model.sexo, htmlAttributes: new { @class = "form-label" })
+
+                                    <div class="form-outline datepicker">
+                                        @{
+                                            List<SelectListItem> listItems = new List<SelectListItem>();
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = "Feminino",
+                                                Value = "Feminino"
+                                            });
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = "Masculino",
+                                                Value = "Masculino",
+                                                Selected = true
+                                            });
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = "Outro",
+                                                Value = "Outro"
+                                            });
+                                        }
+
+                                        @Html.DropDownListFor(model => model.sexo, listItems)
+                                        @Html.ValidationMessageFor(model => model.sexo, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        @Html.LabelFor(model => model.telefone, htmlAttributes: new { @class = "form-label" })
+                                        @Html.EditorFor(model => model.telefone, new { htmlAttributes = new { @class = "form-control", @size = "50" } })
+                                        @Html.ValidationMessageFor(model => model.telefone, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "form-label" })
+                                        @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Enviar</button>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

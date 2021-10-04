@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<section>
+
+    <h1>Bem-vindo ao projeto Hospital</h1>
+
+    <br />
+    <br />
+
+    <table>
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td> <a href="@Url.Action("CadastroPaciente", "Pacientes")"> Cadastrar Paciente </a> </td>
+            </tr>
+            <tr>
+                <td> <a href="@Url.Action("CadastroTipoExame", "TipoExames")"> Cadastrar Tipo de Exame </a> </td>
+            </tr>
+            <tr>
+                <td> <a href="@Url.Action("CadastroExame", "Exames")"> Cadastrar Exame </a> </td>
+            </tr>
+            <tr>
+                <td> <a href="@Url.Action("CadastroConsultaP1", "Consultas")"> Marcar Consulta </a> </td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>

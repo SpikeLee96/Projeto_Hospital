@@ -1,0 +1,57 @@
+﻿@page
+@model Projeto_CRUD.Models.Paciente
+@{
+    var listaPacientes = ViewBag.listaPacientes;
+}
+
+
+<div align="left">
+</div>
+<h3> Lista de Pacientes </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="subtitulo">&nbsp;&nbsp;ID&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Nome&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;CPF&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Data de nascimento&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Sexo&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Telefone&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Email&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Editar&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Deletar&nbsp;&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if(listaPacientes != null) { 
+            @foreach (var p in listaPacientes)
+            {
+            
+
+        <tr>
+            <td>&nbsp;&nbsp;@p.id&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.nome&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.CPF&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.data&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.sexo&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.telefone&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@p.email&nbsp;&nbsp;</td>
+            <td>
+                @Html.ActionLink("Atualizar", "UpdatePaciente", "Pacientes", new { id = p.id })
+            </td> 
+            <td>
+                @using (Html.BeginForm("DeletePaciente", "Pacientes", FormMethod.Post, new { id = p.id }))
+                {
+                    long id = p.id;
+                    @Html.Hidden("id", id)
+                    <input type="submit" value="Deletar" onclick="return confirm('Você confirma a exclusão deste paciente?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                }
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>
+

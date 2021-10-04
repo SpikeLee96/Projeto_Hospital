@@ -1,0 +1,84 @@
+﻿@model Projeto_CRUD.Models.ViewBagModel
+@{
+    ViewData["Title"] = "Home Page";
+    long tipoExame = 0;
+    List<SelectListItem> idConsulta = new List<SelectListItem>();
+    idConsulta.Add(new SelectListItem { Text = ViewBag.Consulta.id.ToString(), Value = ViewBag.Consulta.id.ToString() });
+
+    foreach (var e in ViewBag.listaExames)
+    {
+        if (e.id == ViewBag.Consulta.ExameId)
+        {
+            foreach (var t in ViewBag.listaTipoExames)
+            {
+                if (t.id == e.TipoExameId)
+                {
+                    tipoExame = t.id;
+                }
+            }
+        }
+    }
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<section>
+
+    <h1>Editar consulta</h1>
+
+    <br />
+    <br />
+
+    @using (Html.BeginForm("UpdateConsultaP1", "Consultas", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table>
+            <thead>
+                <tr>
+                    <td> @Html.Label("", "Selecione o tipo do exame", new { @class = "form-label", @style = "font-weight: bold" }) </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @{
+                            List<SelectListItem>
+                                listTipos = new List<SelectListItem>
+                                    ();
+                            foreach (var t in ViewBag.listaTipoExames)
+                            {
+                                listTipos.Add(new SelectListItem
+                                {
+                                    Text = t.tipo,
+                                    Value = t.id.ToString()
+                                });
+                            }
+
+                            @Html.DropDownListFor(model => model.msg, listTipos, new { @id = "tipo-exame" })
+
+                        }
+
+                        @Html.DropDownListFor(model => model.msg2, idConsulta)
+
+                        <script type="text/javascript">
+                            document.getElementById("msg2").hidden = true
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <br /> <button type="submit" class="btn btn-success btn-lg mb-1">Próximo</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+    <script type="text/javascript">
+        document.getElementById("tipo-exame").value = @tipoExame
+    </script>
+
+</section>

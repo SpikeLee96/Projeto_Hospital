@@ -1,0 +1,126 @@
+﻿@model Projeto_CRUD.Models.Consulta
+@{
+    ViewData["Title"] = "Home Page";
+    string nomePaciente = " ";
+    TipoExame tipoExame = new TipoExame();
+    Exame exame = new Exame();
+
+    foreach (var p in ViewBag.listaPacientes)
+    {
+        if (p.id == ViewBag.Consulta.PacienteId)
+        {
+            nomePaciente = p.nome;
+        }
+    }
+
+    foreach (var t in ViewBag.listaTipoExames)
+    {
+        foreach (var e in ViewBag.listaExames)
+        {
+            if (t.id == e.TipoExameId)
+            {
+                tipoExame = t;
+            }
+            if (e.id == ViewBag.Consulta.ExameId)
+            {
+                exame = e;
+            }
+        }
+    }
+
+    List<SelectListItem> pacienteId = new List<SelectListItem>();
+    pacienteId.Add(new SelectListItem { Text = ViewBag.Consulta.PacienteId.ToString(), Value = ViewBag.Consulta.PacienteId.ToString() });
+    List<SelectListItem> exameId = new List<SelectListItem>();
+    exameId.Add(new SelectListItem { Text = ViewBag.Consulta.ExameId.ToString(), Value = ViewBag.Consulta.ExameId.ToString() });
+    List<SelectListItem> data = new List<SelectListItem>();
+    data.Add(new SelectListItem { Text = ViewBag.Consulta.data.ToString(), Value = ViewBag.Consulta.data.ToString() });
+}
+
+<section class="h-100 h-custom" style="background-color: #b30000;">
+
+    <script type="text/javascript">
+        if ("@ViewBag.msg")
+        {
+            alert("@Html.Raw(ViewBag.msg)");
+        }
+    </script>
+
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src='~/resources/hospital.jpg' height="180" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Confirme seus dados</h3>
+
+                        @using (Html.BeginForm("CadastroConsultaP3", "Consultas", FormMethod.Post, new { @class = "px-md-2" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Nome do paciente", new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.DropDownListFor(model => model.PacienteId, pacienteId)
+                                    <script type="text/javascript">
+                                        document.getElementById("PacienteId").hidden = true
+                                    </script>
+
+                                    @Html.Label("", nomePaciente)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Tipo do exame", new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.Label("", tipoExame.tipo)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Descrição do tipo exame", new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.Label("", tipoExame.descricao)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Exame", new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.DropDownListFor(model => model.ExameId, exameId)
+                                    <script type="text/javascript">
+                                        document.getElementById("ExameId").hidden = true
+                                    </script>
+
+                                    <br />
+                                    @Html.Label("", exame.nomeExame)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Observações do exame", new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.Label("", exame.observacoes)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(model => model.data, new { @class = "form-label", @style = "font-weight: bold" })
+                                    @Html.DropDownListFor(model => model.data, data)
+                                    <script type="text/javascript">
+                                        document.getElementById("data").hidden = true
+                                    </script>
+
+                                    <label>@ViewBag.Consulta.data.ToString()</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Enviar</button>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

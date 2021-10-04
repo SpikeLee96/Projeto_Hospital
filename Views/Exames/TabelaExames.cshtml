@@ -1,0 +1,60 @@
+﻿@page
+@model Projeto_CRUD.Models.Exame
+@{
+    var listaExames = ViewBag.listaExames;
+}
+
+<div align="left">
+</div>
+<h3> Lista de Exames </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="subtitulo">&nbsp;&nbsp;ID&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Nome do Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Observações&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Id do Tipo de Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Tipo do exame&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Editar&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Deletar&nbsp;&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaExames != null)
+        {
+            @foreach (var e in listaExames)
+            {
+
+
+        <tr>
+            <td>&nbsp;&nbsp;@e.id&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@e.nomeExame&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@e.observacoes&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;@e.TipoExameId&nbsp;&nbsp;</td>
+
+                @foreach (var t in ViewBag.listaTipoExames) 
+                { 
+                    if (t.id == e.TipoExameId) 
+                    {
+                        <td>&nbsp;&nbsp;@t.tipo&nbsp;&nbsp;</td>
+                    }
+                }
+
+            <td>
+                @Html.ActionLink("Atualizar", "UpdateExame", "Exames", new { id = e.id })
+            </td>
+            <td>
+                @using (Html.BeginForm("DeleteExame", "Exames", FormMethod.Post, new { id = e.id }))
+                {
+                    long id = e.id;
+                    @Html.Hidden("id", id)
+                    <input type="submit" value="Deletar" onclick="return confirm('Você confirma a exclusão deste exame?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                }
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@page
+@model Projeto_CRUD.Models.TipoExame
+@{
+    var listaTipoExames = ViewBag.listaTipoExames;
+}
+
+<div align="left">
+</div>
+<h3> Lista de Tipos de Exames </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="subtitulo">&nbsp;&nbsp;ID&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Tipo do Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Descrição&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Editar&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Deletar&nbsp;&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaTipoExames != null)
+        {
+            @foreach (var t in listaTipoExames)
+            {
+
+
+                <tr>
+                    <td>&nbsp;&nbsp;@t.id&nbsp;&nbsp;</td>
+                    <td>&nbsp;&nbsp;@t.tipo&nbsp;&nbsp;</td>
+                    <td>&nbsp;&nbsp;@t.descricao&nbsp;&nbsp;</td>
+                    <td>
+                        @Html.ActionLink("Atualizar", "UpdateTipoExame", "TipoExames", new { id = t.id })
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("DeleteTipoExame", "TipoExames", FormMethod.Post, new { id = t.id }))
+                        {
+                            long id = t.id;
+                            @Html.Hidden("id", id)
+                            <input type="submit" value="Deletar" onclick="return confirm('Você confirma a exclusão deste tipo de exame?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                        }
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>

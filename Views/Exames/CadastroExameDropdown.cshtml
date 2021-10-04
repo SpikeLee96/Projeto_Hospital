@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="h-100 h-custom" style="background-color: #b30000;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src='~/resources/hospital.jpg' height="180" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Cadastro de Exame</h3>
+
+                        <form class="px-md-2">
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example1q">Nome do exame</label>
+                                <input type="text" id="form3Example1q" class="form-control" />
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example1q">Observações do exame</label>
+                                <textarea type="text" id="form3Example1q" class="form-control"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="exampleDatepicker1" class="form-label">Tipo do exame</label>
+                                    <div class="form-outline datepicker">
+                                        <select class="select">
+                                            <option value="1">Endoscopia</option>
+                                            <option value="2">Tomografia</option>
+                                            <option value="3">Hemograma</option>
+                                            <option value="4">Raio X</option>
+                                            <option value="5">Ressonância Magnética</option>
+                                            <option value="6">Exame de sangue</option>
+                                            <option value="7">Exame de urina</option>
+                                            <option value="8">Eletrocardiograma</option>
+                                            <option value="9">Biópsia</option>
+                                            <option value="10">Laringoscopia</option>
+                                            <option value="11">Outro</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example1q">Descrição do tipo do exame</label>
+                                <textarea type="text" id="form3Example1q" class="form-control"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Enviar</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,80 @@
+﻿@page
+@model Projeto_CRUD.Models.Consulta
+@{
+    var listaConsultas = ViewBag.listaConsultas;
+}
+
+<div align="left">
+</div>
+<h3> Lista de Consultas </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="subtitulo">&nbsp;&nbsp;Número de protocolo&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Nome do paciente&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Tipo do Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Descrição do tipo do exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Observações do Exame&nbsp;&nbsp;</td>
+            <td class="subtitulo">&nbsp;&nbsp;Data marcada&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Editar&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;Deletar&nbsp;&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaConsultas != null)
+        {
+            @foreach (var c in listaConsultas)
+            {
+
+
+        <tr>
+            <td>&nbsp;&nbsp;@c.id&nbsp;&nbsp;</td>
+
+            @{
+                foreach (var p in ViewBag.listaPacientes)
+                {
+                    if (p.id == c.PacienteId)
+                    {
+                        <td>&nbsp;&nbsp;@p.nome&nbsp;&nbsp;</td>
+                    }
+
+                }
+
+                foreach (var e in ViewBag.listaExames)
+                {
+                    if (e.id == c.ExameId)
+                    {
+                        foreach (var t in ViewBag.listaTipoExames)
+                        {
+                            if (t.id == e.TipoExameId)
+                            {
+                                <td>&nbsp;&nbsp;@t.tipo&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;@t.descricao&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;@e.nomeExame&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;@e.observacoes&nbsp;&nbsp;</td>
+                            }
+                        }
+                    }
+                }
+            }
+
+            <td>&nbsp;&nbsp;@c.data&nbsp;&nbsp;</td>
+            <td>
+                @Html.ActionLink("Atualizar", "UpdateConsultaP1", "Consultas", new { id = c.id })
+            </td>
+            <td>
+                @using (Html.BeginForm("DeleteConsulta", "Consultas", FormMethod.Post, new { id = c.id }))
+                {
+                    long id = c.id;
+                    @Html.Hidden("id", id)
+                    <input type="submit" value="Deletar" onclick="return confirm('Você confirma a exclusão desta consulta?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                }
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>

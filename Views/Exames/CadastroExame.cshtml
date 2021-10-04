@@ -1,0 +1,65 @@
+﻿@model Projeto_CRUD.Models.Exame
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="h-100 h-custom" style="background-color: #b30000;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src='~/resources/hospital.jpg' height="180" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Cadastro de Exame</h3>
+
+                        @using (Html.BeginForm("CadastroExame", "Exames", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-outline mb-4">
+                                @Html.Label("", "Tipo de Exame", htmlAttributes: new { @class = "form-label" })
+
+                                <div class="form-outline datepicker">
+
+                                    @{
+
+                                        List<SelectListItem>
+                                            listItems = new List<SelectListItem>
+                                                ();
+                                        foreach (var n in ViewBag.tiposExame)
+                                        {
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = n.tipo,
+                                                Value = n.id.ToString()
+                                            });
+                                        }
+
+                                        @Html.DropDownListFor(model => model.TipoExameId, listItems)
+
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.nomeExame, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.nomeExame, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nomeExame, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "form-label" }) <br />
+                                @Html.TextAreaFor(model => model.observacoes, 5, 50, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Enviar</button>
+
+                        }
+                    </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,88 @@
+﻿@model Projeto_CRUD.Models.Consulta
+@{
+    ViewData["Title"] = "Home Page";
+    string pacienteId = ViewBag.paciente.id.ToString();
+    string pacienteNome = ViewBag.paciente.nome;
+    List<SelectListItem> l = new List<SelectListItem>();
+    l.Add(new SelectListItem { Text = pacienteId, Value = pacienteId });
+}
+
+<section class="h-100 h-custom" style="background-color: #b30000;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src='~/resources/hospital.jpg' height="180" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Marcação de consulta</h3>
+
+                        @using (Html.BeginForm("CadastroConsultaP2", "Consultas", FormMethod.Post, new { @class = "px-md-2" } ))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.Label("", "Nome do paciente", new { @class = "form-label", @style = "font-weight: bold" } )
+                                    @Html.Label("", pacienteNome, new { @class = "form-label" } )
+                                    @Html.DropDownListFor(model => model.PacienteId, l)
+
+                                    <script type="text/javascript">
+                                        document.getElementById("PacienteId").hidden = true
+                                    </script>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mb-4">
+                                    @Html.Label("", "Exame", new { @class = "form-label", @style = "font-weight: bold" } )
+                                    <div class="form-outline datepicker">
+                                        @{
+                                            List<SelectListItem> listExames = new List<SelectListItem>();
+
+                                            foreach (var e in ViewBag.listaExames)
+                                            {
+                                                if (ViewBag.tipoExame == e.TipoExameId.ToString())
+                                                {
+                                                    listExames.Add(new SelectListItem
+                                                    {
+                                                        Text = e.nomeExame,
+                                                        Value = e.id.ToString()
+                                                    });
+                                                }
+                                            }
+
+                                            @Html.DropDownListFor(model => model.ExameId, listExames)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mb-4">
+                                    @Html.LabelFor(model => model.data, new { @class = "form-label", @style = "font-weight: bold" } )
+                                    <div class="form-outline datepicker">
+                                        @{
+                                            List<SelectListItem> listItems = new List<SelectListItem>();
+
+                                            foreach (var d in ViewBag.datas)
+                                            {
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = d.ToString(),
+                                                    Value = d.ToString()
+                                                });
+                                            }
+
+                                            @Html.DropDownListFor(model => model.data, listItems, "-- Selecione uma data --") <br />
+                                            @Html.ValidationMessageFor(model => model.data, "", new { @class = "text-danger" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Próximo</button>
+                        }
+                    </div>
+                </div>
+</section>
