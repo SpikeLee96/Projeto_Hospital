@@ -1,7 +1,7 @@
 # Projeto Hospital
 
 Projeto Hospital é um desafio proposto para uma entevista de emprego que passei do qual consiste em criação de CRUDs para determinadas entidades planejadas, validações por back e front-end, e geração de banco de dados a partir de models pré-configuradas com Data Annotations (code first).
-O projeto permite cadastrar pacientes, tipos de exames, exames e marcação de consultas.
+O projeto permite cadastrar pacientes, tipos de exames, exames e marcação de consultas. Também foi necessário usar bootstrap para gerar templates.
 
 Passos para rodar a aplicação:
 
